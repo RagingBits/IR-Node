@@ -42,7 +42,7 @@ socket_connection = ''
 socket_address = ''
 socket_open = False
 
-debug_active = False
+debug_active = True
 
 
 def debug_print(data):
@@ -312,7 +312,10 @@ def main ():
 	#serial_port = serial_start(port_name,input_queue,output_queue)
 	serial_port = serial_start(port_name,socket_output_queue,socket_input_queue)
 	
-	socket_number = args.s
+	if(not args.s):
+		socket_number = 0
+	else:
+		socket_number = int(args.s)
 		
 	#open socket here
 
@@ -328,7 +331,7 @@ def main ():
 
 	while(run):
 		
-		time.sleep(0.1)
+		time.sleep(0.01)
 
 		if sys.stdin.readline() == 'x\n':
 			run = False

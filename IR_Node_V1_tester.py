@@ -142,7 +142,7 @@ def serial_stop():
 	debug_print("Serial daemons stopped.")
 
 
-
+sem_vals=[1,2,4]
 def sem_update(output_queue):
 	global total_sems
 	global current_sem
@@ -152,15 +152,12 @@ def sem_update(output_queue):
 	if(current_sem > total_sems):
 		sem_val += 1
 		current_sem = 1
-		if(sem_val > 3):
-			sem_val = 1
+		if(sem_val > 2):
+			sem_val = 0
 	
-	val = sem_val
-	if(current_sem%2):
-		val = 4-val
 	
-	debug_print([current_sem,70,3,val])
-	output_queue.put([current_sem,70,val,3])
+	debug_print([current_sem,70,3,sem_val+1])
+	output_queue.put([current_sem,70,sem_vals[sem_val],3])
 	current_sem += 1
 	
 	
